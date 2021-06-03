@@ -104,7 +104,7 @@ export let BadgeInput = ({
               value={value}
               onChangeText={onChangeText}
               style={inputProps && inputProps.style}
-              placeholder={isInputEmpty && placeholder}
+              placeholder={isInputEmpty ? placeholder : ''}
               autoCapitalize={'none'}
               autoCompleteType={'off'}
               // {...focusProps}
