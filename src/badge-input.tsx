@@ -4,12 +4,12 @@ import {
   StyleSheet,
   TextInput,
   TouchableWithoutFeedback,
-  Text,
+  // Text,
   TextInputProps,
   TouchableOpacityProps,
 } from 'react-native'
 import InputBadge from './input-badge'
-import { useInputFocus } from './hooks'
+// import { useInputFocus } from './hooks'
 import { Badge } from './types'
 import { colors } from './constants'
 
@@ -22,6 +22,7 @@ interface Props extends TextInputProps {
   inputSuffix?: () => ReactElement
   badgeStyle?: TouchableOpacityProps['style']
   inputProps?: TextInputProps
+  style?: object
   keyExtractor?: (_: any) => string
   textExtractor?: (_: any) => string
 }
@@ -56,7 +57,7 @@ export let BadgeInput = ({
   keyExtractor = textExtractor,
   ...props
 }: Props) => {
-  let [isFocused, focusProps] = useInputFocus(false)
+  // let [isFocused, focusProps] = useInputFocus(false)
   let inputRef = useRef<TextInput>(null)
 
   // Handle press of an entire component and focus on the input
@@ -69,12 +70,12 @@ export let BadgeInput = ({
   // Show Text with the placeholder instead of using TextInputs placeholder,
   // as it would be shown when internal TextInput is empty.
   let isInputEmpty = value.length + badges.length === 0
-  let shouldRenderPlaceholder = placeholder && isInputEmpty && !isFocused
+  // let shouldRenderPlaceholder = placeholder && isInputEmpty
 
-  let renderPlaceholder = useCallback(
-    () => <Text style={styles.placeholder}>{placeholder}</Text>,
-    []
-  )
+  // let renderPlaceholder = useCallback(
+  //   () => <Text>{placeholder}</Text>,
+  //   []
+  // )
 
   let renderBadges = useCallback(
     () =>
@@ -96,16 +97,17 @@ export let BadgeInput = ({
       <TouchableWithoutFeedback onPress={onPress} style={style}>
         <View style={styles.container}>
           <View style={styles.contentContainer}>
-            {shouldRenderPlaceholder && renderPlaceholder()}
+            {/* {shouldRenderPlaceholder && renderPlaceholder()} */}
             {renderBadges()}
             <TextInput
               ref={inputRef}
               value={value}
               onChangeText={onChangeText}
-              style={[styles.input, inputProps && inputProps.style]}
+              style={inputProps && inputProps.style}
+              placeholder={isInputEmpty && placeholder}
               autoCapitalize={'none'}
               autoCompleteType={'off'}
-              {...focusProps}
+              // {...focusProps}
               {...props}
               {...inputProps}
             />
